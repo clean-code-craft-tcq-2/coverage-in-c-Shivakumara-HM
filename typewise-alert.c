@@ -57,7 +57,7 @@ AlertRetStatus checkAndAlert(AlertTarget alertTarget, BreachType typeOfBreach)
   return alertRet;
 }
 
-AlertRet classifyBreachAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) 
+AlertRetStatus classifyBreachAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) 
 {
   BreachType breachType;
   AlertRetStatus alertStatus;
