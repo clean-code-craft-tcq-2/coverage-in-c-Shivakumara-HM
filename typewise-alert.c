@@ -36,24 +36,43 @@ BreachType classifyTemperatureBreach(CoolingType coolingType, double temperature
   return inferBreach(temperatureInC, lowerLimit, upperLimit);
 }
 
-AlertStatus checkAndAlert(AlertTarget alertTarget, BreachType typeOfBreach) 
+AlertRetStatus checkAndAlert(AlertTarget alertTarget, BreachType typeOfBreach) 
 {
-  int AlertStatus;
+  AlertRetStatus alertRet;
+ 
   switch(alertTarget) 
   {
     case TO_CONTROLLER:
       sendToController(typeOfBreach);
-      AlertStatus = 1;
+      alertRet = ALERT_SUCCESS;
       break;
     case TO_EMAIL:
       sendToEmail(typeOfBreach);
-      AlertStatus = 1;
+      alertRet = ALERT_SUCCESS;
       break;
     default:
-      AlertStatus = 0;
+      alertRet = ALERT_FAILURE;
       break;
   }
-  return AlertStatus;
+  return alertRet;
+}
+
+AlertRet classifyBreachAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) 
+{
+  BreachType breachType;
+  AlertRetStatus alertStatus;
+ 
+  if((batteryChar.coolingType >= 0) && (batteryChar.coolingType <= 2))
+  {
+    breachType = classifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
+    alertStatus = checkAndAlert(alertTarget, breachType);
+  }
+  else
+  {
+    breachType = UNKNOWN_BREACH;
+    alertStatus = UNKNOWN_BREACH_ALERT_FAILED;
+  }
+  return (alertStatus);
 }
 
 void sendToController(BreachType breachType) {
