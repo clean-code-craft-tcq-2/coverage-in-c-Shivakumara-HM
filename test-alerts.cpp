@@ -3,12 +3,12 @@
 #include "test/catch.hpp"
 #include "typewise-alert.h"
 
-TEST_CASE("infers the breach according to limits") {
+TEST_CASE("infers the breach according to limits") 
+{
   REQUIRE(inferBreach(19, 20, 30) == TOO_LOW);
   REQUIRE(inferBreach(31, 20, 30) == TOO_HIGH);
   REQUIRE(inferBreach(20, 20, 30) == NORMAL);
   REQUIRE(inferBreach(30, 20, 30) == NORMAL);
-  //Test for zero, negative and decimal values
   REQUIRE(inferBreach(0, 0, 15) == NORMAL);
   REQUIRE(inferBreach(-1, 0, 15) == TOO_LOW);
   REQUIRE(inferBreach(-5, -20, -5) == NORMAL);
@@ -18,7 +18,8 @@ TEST_CASE("infers the breach according to limits") {
   REQUIRE(inferBreach(-0.4, -1.1, -0.5) == TOO_HIGH);
 }
 
-TEST_CASE("infers the breach according to limits of each coolingType") {
+TEST_CASE("infers the breach according to limits of each coolingType") 
+{
   //Test PASSIVE_COOLING limits
   REQUIRE(classifyTemperatureBreach(PASSIVE_COOLING, PASSIVE_COOLING_LOW_LIMIT) == NORMAL);
   REQUIRE(classifyTemperatureBreach(PASSIVE_COOLING, PASSIVE_COOLING_LOW_LIMIT - 0.1) == TOO_LOW);
@@ -36,19 +37,22 @@ TEST_CASE("infers the breach according to limits of each coolingType") {
   REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING, MED_ACTIVE_COOLING_HIGH_LIMIT + 0.1) == TOO_HIGH);
 }
 
-TEST_CASE("print to verify sending an alert to the controller") {
+TEST_CASE("print to verify sending an alert to the controller") 
+{
   sendToController(NORMAL);
   sendToController(TOO_LOW);
   sendToController(TOO_HIGH);
 }
 
-TEST_CASE("print to verify sending an alert through email") {
+TEST_CASE("print to verify sending an alert through email") 
+{
   sendToEmail(NORMAL);
   sendToEmail(TOO_LOW);
   sendToEmail(TOO_HIGH);
 }
 
-TEST_CASE("print to verify check and alert feature") {
+TEST_CASE("print to verify check and alert feature") 
+{
   //Test sending alerts to the controller. Verify corresponding printing.
   // Test PASSIVE_COOLING
   BatteryCharacter batteryChar1 = {PASSIVE_COOLING, "BatteryPassiveNormal"};
