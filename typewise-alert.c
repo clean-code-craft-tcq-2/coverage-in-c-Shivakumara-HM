@@ -28,7 +28,7 @@ BreachType classifyTemperatureBreach(CoolingType coolingType, double temperature
       lowerLimit = HI_ACTIVE_COOLING_LOW_LIMIT;
       upperLimit = HI_ACTIVE_COOLING_HIGH_LIMIT;
       break;
-    case MED_ACTIVE_COOLING:
+    default:
       lowerLimit = MED_ACTIVE_COOLING_LOW_LIMIT;
       upperLimit = MED_ACTIVE_COOLING_HIGH_LIMIT;
       break;
@@ -71,7 +71,9 @@ void sendToEmail(BreachType breachType)
       printf("To: %s\n", recepient);
       printf("Hi, the temperature is too high\n");
       break;
-    case NORMAL:
+    default:
+      printf("To: %s\n", recepient);
+      printf("Hi, the temperature is Normal\n");	
       break;
   }
 }
